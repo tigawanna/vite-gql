@@ -7,6 +7,7 @@ import { MuiModal } from "../shared/MuiModal";
 import Chip from '@mui/joy/Chip';
 import { CardMenu } from "../shared/CardMenu";
 import MenuItem from "@mui/material/MenuItem";
+import { UpdateRepoForm } from "./UpdateRepoForm";
 
 
 interface OneRepoProps {}
@@ -35,7 +36,6 @@ export function OneRepo({}: OneRepoProps) {
                 {repo.isFork && <GitFork className="w-5 h-5 text-purple-400" />}
                 <Edit className="w-5 h-5 " onClick={() => setOpen(true)} />
                 <CardMenu>
-
                   <MenuItem
                     sx={{
                       fontSize: "12px",
@@ -57,7 +57,6 @@ export function OneRepo({}: OneRepoProps) {
                     onClick={() => setOpen(true)}>
                     Delete
                   </MenuItem>
-
                 </CardMenu>
               </div>
             </div>
@@ -89,8 +88,12 @@ export function OneRepo({}: OneRepoProps) {
           />
         </div>
       </div>
-      {/* @ts-expect-error */}
-      <MuiModal open={open} setOpen={setOpen} input={repo} />
+
+      <MuiModal 
+        open={open} setOpen={setOpen}>
+          {/* @ts-expect-error */}
+          <UpdateRepoForm input={repo} />
+      </MuiModal>
     </Card>
   );
 }

@@ -7,14 +7,24 @@ import Chip from "@mui/joy/Chip";
 import { MuiModal } from "../shared/MuiModal";
 import MenuItem from "@mui/joy/MenuItem";
 import { CardMenu } from "../shared/CardMenu";
+import { ItemList } from "./Repos";
+import { Checkbox } from "@mui/joy";
+import { UpdateRepoForm } from "./UpdateRepoForm";
+
 
 interface RepoCard {
   viewer_repos: RepositoriesEdge;
+  selected: boolean;
+  editing: boolean;
+  selectItem: (item: ItemList) => void;
+  unselectItem: (item: ItemList) => void;
 }
 
-export function RepoCard({ viewer_repos }: RepoCard) {
+export function RepoCard({ viewer_repos,selectItem,selected,unselectItem,editing }: RepoCard) {
 const [repo, setRepos] = React.useState(viewer_repos.node);
 const [open,setOpen]=React.useState(false)
+
+
 
 //  console.log("repo === ",repo.repositoryTopics);
   return (
@@ -26,13 +36,26 @@ const [open,setOpen]=React.useState(false)
         ":hover": {
           boxShadow: "1px 1px 1px 1px purple",
           color: "black",
-
         },
       }}
       className="md:h-[350px] w-full md:w-[45%] lg:w-[30%] flex flex-col  gap-2 "
       variant="elevation">
       <div className="w-full flex flex-wrap lg:flex-row  justify-between p-3 gap-2">
-        <div className="w-full flex justify-between ">
+        <div className="w-full flex justify-between items-center gap-2">
+          {editing && (
+            <Checkbox
+              className="border-2 border-purple-600 mr-2"
+              checked={selected}
+              onClick={() => {
+                if (selected) {
+                  unselectItem(repo);
+                } else {
+                  selectItem(repo);
+                }
+              }}
+            />
+          )}
+
           <div className="w-[90%] flex flex-col justify-between line-clamp-2">
             <h1 className="text-xl font-bold line-clamp-1">{repo.name}</h1>
             <h3 className="line-clamp-1">{repo.nameWithOwner}</h3>
@@ -92,7 +115,9 @@ const [open,setOpen]=React.useState(false)
           );
         })}
       </div>
-      <MuiModal open={open} setOpen={setOpen} input={repo} />
+      <MuiModal open={open} setOpen={setOpen}>
+        <UpdateRepoForm input={repo} />
+      </MuiModal>
     </Card>
   );
 }
