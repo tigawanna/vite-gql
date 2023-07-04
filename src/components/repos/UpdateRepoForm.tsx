@@ -55,7 +55,7 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2 scrollbar-thin overflow-scroll">
       <h1 className="font-bold p-1 mt-3">Update {input.nameWithOwner} repository </h1>
       <FormControl>
         <FormLabel>Name</FormLabel>
@@ -99,7 +99,9 @@ export function UpdateRepoForm({ input }: UpdateRepoFormProps) {
 
       <Stack direction="row" className="w-full gap- flex flex-wrap justify-center items-center">
         {updateRepoBooleans.map((boolean) => (
-          <div className="w-fit flex items-center justify-center">
+          <div 
+          key={boolean}
+          className="w-fit flex items-center justify-center">
             <Checkbox
               name={boolean}
               checked={formData[boolean]}

@@ -5,6 +5,8 @@ import { Edit, GitFork, Lock } from "lucide-react";
 
 import { MuiModal } from "../shared/MuiModal";
 import Chip from '@mui/joy/Chip';
+import { CardMenu } from "../shared/CardMenu";
+import MenuItem from "@mui/material/MenuItem";
 
 
 interface OneRepoProps {}
@@ -16,20 +18,47 @@ export function OneRepo({}: OneRepoProps) {
     <Card className="min-h-screen w-full  flex flex-col">
       <div className="w-full flex flex-col md:flex-row  justify-between p-3 gap-2 ">
         <div className="w-full  flex flex-col md:flex-row justify-between p-3">
-
           <div className="w-full flex flex-col  gap-5 p-2">
             <div className="flex flex-col gap-2">
-              <a href={repo.url} target="_blank" rel="noreferrer" className="hover:text-purple-700 gap-2 ">
-              <h1 className="w-full text-4xl md:text-6xl font-bold p-1">{repo.name}</h1>
-              <h3 className="w-full text-xl md:text-2xl font-bold p-1">{repo.nameWithOwner}</h3>
+              <a
+                href={repo.url}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-purple-700 gap-2 ">
+                <h1 className="w-full text-4xl md:text-6xl font-bold p-1">{repo.name}</h1>
+                <h3 className="w-full text-xl md:text-2xl font-bold p-1">{repo.nameWithOwner}</h3>
               </a>
               <h4>{}</h4>
 
               <div className="w-full flex flex-wrap gap-1">
-                {repo.isPrivate&&<Lock className="w-5 h-5 text-red-400" />}
-                {repo.isFork&&<GitFork className="w-5 h-5 text-purple-400" />}
+                {repo.isPrivate && <Lock className="w-5 h-5 text-red-400" />}
+                {repo.isFork && <GitFork className="w-5 h-5 text-purple-400" />}
                 <Edit className="w-5 h-5 " onClick={() => setOpen(true)} />
-         
+                <CardMenu>
+
+                  <MenuItem
+                    sx={{
+                      fontSize: "12px",
+                      ":hover": {
+                        color: "blue",
+                      },
+                    }}
+                    onClick={() => setOpen(true)}>
+                    Edit
+                  </MenuItem>
+
+                  <MenuItem
+                    sx={{
+                      fontSize: "12px",
+                      ":hover": {
+                        color: "red",
+                      },
+                    }}
+                    onClick={() => setOpen(true)}>
+                    Delete
+                  </MenuItem>
+
+                </CardMenu>
               </div>
             </div>
             <div>
@@ -37,7 +66,9 @@ export function OneRepo({}: OneRepoProps) {
               <div className="w-full flex flex-wrap gap-1 border-t p-2 scrollbar-thin">
                 {repo.repositoryTopics.nodes.map((topic) => {
                   return (
-                  <Chip key={topic.id} onClick={function(){}} variant="outlined" >{topic.topic.name}</Chip>
+                    <Chip key={topic.id} onClick={function () {}} variant="outlined">
+                      {topic.topic.name}
+                    </Chip>
                   );
                 })}
               </div>
@@ -47,6 +78,7 @@ export function OneRepo({}: OneRepoProps) {
           {/* <IconButton aria-label="settings">
                   <MoreVertIcon />
               </IconButton> */}
+
           <CardMedia
             component="img"
             height={50}
@@ -56,12 +88,9 @@ export function OneRepo({}: OneRepoProps) {
             width={50}
           />
         </div>
- 
-
       </div>
       {/* @ts-expect-error */}
-      <MuiModal open={open} setOpen={setOpen} input={repo}/>
-
+      <MuiModal open={open} setOpen={setOpen} input={repo} />
     </Card>
   );
 }
