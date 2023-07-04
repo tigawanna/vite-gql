@@ -22,23 +22,5 @@ return (
 }
 
 
-{/* <div key={repo.node.id} className="w-[45%] flex flex-col j items-center border gap-2 p-1 
- shadow-purple-900  shadow rounded flex-grow">
-    <div className="w-full flex ">
-        <div className="w-full flex flex-col">
-            <h2 className="text-xl font-bold">{repo.node.name}</h2>
-            <div>{repo.node.nameWithOwner}</div>
-        </div>
 
-    </div>
 
-    <div className="w-full flex flex-wrap gap-1 border-t p-1">
-        {repo.node.repositoryTopics.nodes.map((topic) => {
-            return (
-                <div key={topic.id} className="w-fit  rounded-full border shadow-purple-900  shadow  gap-1 text-xs py-[2xp] px-2">
-                    {topic.topic.name}</div>
-            )
-        })}
-    </div>
-
-</div> */}
